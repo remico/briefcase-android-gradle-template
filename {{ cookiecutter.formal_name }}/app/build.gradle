@@ -1,11 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    ndkVersion "21.3.6528147"
+    buildFeatures {
+        viewBinding true
+    }
+    compileSdkVersion 31
     defaultConfig {
         applicationId "{{ cookiecutter.package_name }}.{{ cookiecutter.module_name }}"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode {{ cookiecutter.version_code }}
         versionName "{{ cookiecutter.version }}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

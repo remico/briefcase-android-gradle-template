@@ -30,6 +30,7 @@ import java.util.zip.ZipInputStream;
 import org.beeware.rubicon.Python;
 
 import {{ cookiecutter.package_name }}.{{ cookiecutter.module_name }}.R;
+import {{ cookiecutter.package_name }}.{{ cookiecutter.module_name }}.databinding.ActivityMainBinding;
 
 import static org.beeware.android.Helpers.ensureDirExists;
 import static org.beeware.android.Helpers.unpackAssetPrefix;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
      * access it from Python.
      */
     public static MainActivity singletonThis;
+
+    // to get access to the view`s content from Python
+    public static ActivityMainBinding binding;
 
     private Map<String, File> getPythonPaths() throws IOException {
         Map paths = new HashMap<String, File>();
@@ -238,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
         // Change away from the splash screen theme to the app theme.
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        LinearLayout layout = new LinearLayout(this);
-        this.setContentView(layout);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        this.setContentView(binding.getRoot());
         singletonThis = this;
         try {
             Map<String, File> paths = getPythonPaths();
